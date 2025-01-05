@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
         android:src="@drawable/texture_left"
         app:layout_constraintBottom_toTopOf="@+id/guidelineLeftTexture"
@@ -20,6 +20,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/ellipse"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="@id/guidelineEllipseBottom"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="@id/guidelineEllipseRight"
@@ -31,7 +32,7 @@
         style="@style/h4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/tvRightAddressMargin"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="@string/rightAddress"
         android:textAlignment="center"
@@ -45,7 +46,7 @@
         style="@style/h2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/quality"
         android:textAlignment="center"
@@ -56,15 +57,16 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/app_name"
         android:src="@drawable/texture_right"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guidelineLeftTexture" />
 
     <androidx.appcompat.widget.AppCompatButton
         style="@style/blueButtonStyle"
-        android:layout_width="@dimen/smallButtonWidth"
-        android:layout_height="@dimen/smallButtonHeight"
-        android:text="Start Shopping"
+        android:layout_width="180dp"
+        android:layout_height="55dp"
+        android:text="@string/start_shopping"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/tv_right_address_for_shopping"
         app:layout_constraintStart_toStartOf="@+id/tv_right_address_for_shopping"
