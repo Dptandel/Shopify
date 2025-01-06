@@ -63,6 +63,7 @@
         app:layout_constraintTop_toBottomOf="@+id/guidelineLeftTexture" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_start_shopping"
         style="@style/blueButtonStyle"
         android:layout_width="180dp"
         android:layout_height="55dp"

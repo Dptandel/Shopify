@@ -2,16 +2,13 @@ package com.app.shopify.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.app.shopify.databinding.ActivityLoginRegisterBinding
+import com.app.shopify.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginRegisterActivity : AppCompatActivity() {
-
-    private val binding: ActivityLoginRegisterBinding by lazy {
-        ActivityLoginRegisterBinding.inflate(layoutInflater)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_login_register)
     }
 }
