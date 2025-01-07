@@ -66,4 +66,8 @@ dependencies {
 
     // Loading Button
     implementation(libs.leandroborgesferreira.loading.button.android)
+
+    // Navigation component
+    implementation (libs.androidx.navigation.fragment.ktx)
+    implementation (libs.androidx.navigation.ui.ktx)
 }
