@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.app.shopify.R
 import com.app.shopify.databinding.FragmentRegisterBinding
 import com.app.shopify.models.User
 import com.app.shopify.utils.RegisterValidation
@@ -45,6 +47,10 @@ class RegisterFragment : Fragment() {
                 val password = edtPasswordRegister.text.toString()
                 viewModel.createAccountWithEmailPassword(user, password)
             }
+
+            tvAlreadyHaveAnAccount.setOnClickListener {
+                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+            }
         }
 
         lifecycleScope.launchWhenStarted {
@@ -63,13 +69,14 @@ class RegisterFragment : Fragment() {
                         Log.e("TEST", it.message.toString())
                         binding.btnRegister.revertAnimation()
                     }
+
                     else -> Unit
                 }
             }
         }
 
         lifecycleScope.launchWhenStarted {
-            viewModel.validation.collect {validation ->
+            viewModel.validation.collect { validation ->
                 if (validation.email is RegisterValidation.Failed) {
                     withContext(Dispatchers.Main) {
                         binding.edtEmailRegister.apply {
