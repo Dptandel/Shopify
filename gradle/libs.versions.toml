@@ -1,5 +1,5 @@
 [versions]
-agp = "8.7.3"
+agp = "8.8.0"
 circleimageview = "3.1.0"
 firebaseAuth = "23.1.0"
 glide = "4.16.0"
@@ -18,9 +18,11 @@ loadingButtonAndroidVersion = "2.3.0"
 material = "1.12.0"
 activity = "1.9.3"
 constraintlayout = "2.2.0"
+mdverticaltablayout = "0.8.0"
 navigationFragmentKtx = "2.8.5"
 navigationFragmentKtxVersion = "2.4.2"
 stepview = "1.5.1"
+verticalTablayout = "1.0.2"
 viewpagerindicator = "1.0.0-alpha.1"
 googleGmsGoogleServices = "4.4.2"
 firebaseFirestore = "25.1.1"
@@ -48,7 +50,9 @@ loading-button-android = { module = "br.com.simplepass:loading-button-android", 
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+mdverticaltablayout = { module = "com.github.mohdDanishCode:MDVerticalTabLayout", version.ref = "mdverticaltablayout" }
 stepview = { module = "com.shuhart.stepview:stepview", version.ref = "stepview" }
+vertical-tablayout = { module = "com.github.j-yun:Vertical-TabLayout", version.ref = "verticalTablayout" }
 viewpagerindicator = { module = "io.github.vejei.viewpagerindicator:viewpagerindicator", version.ref = "viewpagerindicator" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 
