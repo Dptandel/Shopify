@@ -23,7 +23,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         Category(2, R.drawable.ic_launcher_background, "Kurti, Saree & Lehenga"),
         Category(3, R.drawable.ic_launcher_background, "Women Western"),
         Category(4, R.drawable.ic_launcher_background, "Men"),
-        Category(5, R.drawable.ic_launcher_background, "Kids & Toys"),
+        /*Category(5, R.drawable.ic_launcher_background, "Kids & Toys"),
         Category(6, R.drawable.ic_launcher_background, "Home & Kitchen"),
         Category(7, R.drawable.ic_launcher_background, "Beauty & Health"),
         Category(8, R.drawable.ic_launcher_background, "Jewellery & Accessories"),
@@ -36,7 +36,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         Category(15, R.drawable.ic_launcher_background, "Grocery"),
         Category(16, R.drawable.ic_launcher_background, "Books"),
         Category(17, R.drawable.ic_launcher_background, "Pet Supplies"),
-        Category(18, R.drawable.ic_launcher_background, "Musical Instruments")
+        Category(18, R.drawable.ic_launcher_background, "Musical Instruments")*/
     )
 
     private val contents = listOf(

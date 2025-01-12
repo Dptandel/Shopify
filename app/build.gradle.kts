@@ -70,4 +70,7 @@ dependencies {
     // Navigation component
     implementation (libs.androidx.navigation.fragment.ktx)
     implementation (libs.androidx.navigation.ui.ktx)
+
+    // Glide
+    implementation (libs.glide)
 }
