@@ -1,6 +1,7 @@
 package com.app.shopify.adapters
 
 import android.annotation.SuppressLint
+import android.graphics.Paint
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
@@ -23,21 +24,15 @@ class BestDealsAdapter : RecyclerView.Adapter<BestDealsAdapter.BestDealsViewHold
             binding.apply {
                 Glide.with(itemView).load(product.images[0]).into(imgBestDeal)
                 tvBestDealProductName.text = product.name
+
                 val discount = product.offerPercentage!! / 100
-                val priceAfterDiscount = round(product.price - (discount * product.price)).toInt()
-                val originalPrice = product.price.toInt()
+                val priceAfterDiscount =
+                    round(product.price - (discount * product.price)).toInt().toString()
+                val price = product.price.toInt().toString()
 
-                tvNewPrice.text = priceAfterDiscount.toString()
-
-                val oldPrice = SpannableString("₹ $originalPrice").apply {
-                    setSpan(
-                        StrikethroughSpan(),
-                        0,
-                        length,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                    )
-                }
-                tvOldPrice.text = oldPrice
+                tvNewPrice.text = "₹ $priceAfterDiscount"
+                tvOldPrice.text = "₹ $price"
+                tvOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             }
         }
     }

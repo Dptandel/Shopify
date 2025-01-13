@@ -19,6 +19,8 @@
             android:layout_height="90dp"
             android:layout_marginStart="16dp"
             android:scaleType="centerCrop"
+            android:background="@drawable/round_corner_image"
+            android:clipToOutline="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
