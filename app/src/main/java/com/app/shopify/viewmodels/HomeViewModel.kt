@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.app.shopify.models.Product
 import com.app.shopify.utils.Resource
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -25,34 +26,42 @@ class HomeViewModel @Inject constructor(
     private val _bestProducts = MutableStateFlow<Resource<List<Product>>>(Resource.UnSpecified())
     val bestProducts: StateFlow<Resource<List<Product>>> = _bestProducts
 
+    private val pagingInfo = PagingInfo()
+
     init {
         fetchSpecialProducts()
         fetchBestDealsProducts()
         fetchBestProducts()
     }
 
-    private fun fetchBestProducts() {
-        viewModelScope.launch {
-            _bestProducts.emit(Resource.Loading())
-        }
-        firestore.collection("products").whereEqualTo("category", "Special Products").get()
-            .addOnSuccessListener { result ->
-                val bestProductList = result.toObjects(Product::class.java)
-                viewModelScope.launch {
-                    _bestProducts.emit(Resource.Success(bestProductList))
-                }
-            }.addOnFailureListener {
-                viewModelScope.launch {
-                    _bestProducts.emit(Resource.Error(it.message.toString()))
-                }
+    fun fetchBestProducts() {
+        if (!pagingInfo.isPagingEnd) {
+            viewModelScope.launch {
+                _bestProducts.emit(Resource.Loading())
             }
+            firestore.collection("products").orderBy("id", Query.Direction.ASCENDING)
+                .limit(pagingInfo.bestProductPage * 4).get()
+                .addOnSuccessListener { result ->
+                    val bestProductList = result.toObjects(Product::class.java)
+                    pagingInfo.isPagingEnd = bestProductList == pagingInfo.oldBestProducts
+                    pagingInfo.oldBestProducts = bestProductList
+                    viewModelScope.launch {
+                        _bestProducts.emit(Resource.Success(bestProductList))
+                    }
+                    pagingInfo.bestProductPage++
+                }.addOnFailureListener {
+                    viewModelScope.launch {
+                        _bestProducts.emit(Resource.Error(it.message.toString()))
+                    }
+                }
+        }
     }
 
-    private fun fetchBestDealsProducts() {
+    fun fetchBestDealsProducts() {
         viewModelScope.launch {
             _bestDealsProducts.emit(Resource.Loading())
         }
-        firestore.collection("products").whereEqualTo("category", "Special Products").get()
+        firestore.collection("products").get()
             .addOnSuccessListener { result ->
                 val bestDealProductList = result.toObjects(Product::class.java)
                 viewModelScope.launch {
@@ -65,7 +74,7 @@ class HomeViewModel @Inject constructor(
             }
     }
 
-    private fun fetchSpecialProducts() {
+    fun fetchSpecialProducts() {
         viewModelScope.launch {
             _specialProducts.emit(Resource.Loading())
         }
@@ -82,3 +91,9 @@ class HomeViewModel @Inject constructor(
             }
     }
 }
+
+internal data class PagingInfo(
+    var bestProductPage: Long = 1,
+    var oldBestProducts: List<Product> = emptyList(),
+    var isPagingEnd: Boolean = false
+)

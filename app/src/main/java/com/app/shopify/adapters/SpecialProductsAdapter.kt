@@ -1,6 +1,7 @@
 package com.app.shopify.adapters
 
 import android.annotation.SuppressLint
+import android.graphics.Paint
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
@@ -24,20 +25,15 @@ class SpecialProductsAdapter :
             binding.apply {
                 Glide.with(itemView).load(product.images[0]).into(imgSpecialProduct)
                 tvSpecialProductName.text = product.name
-                val discount = product.offerPercentage!! / 100
-                val priceAfterDiscount = round(product.price - (discount * product.price)).toInt()
-                val originalPrice = product.price.toInt()
 
-                val price = SpannableString("₹ $priceAfterDiscount $originalPrice").apply {
-                    val startIndex = indexOf("$originalPrice")
-                    setSpan(
-                        StrikethroughSpan(),
-                        startIndex,
-                        length,
-                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                    )
-                }
-                tvSpecialProductPrice.text = price
+                val discount = product.offerPercentage!! / 100
+                val priceAfterDiscount =
+                    round(product.price - (discount * product.price)).toInt().toString()
+                val originalPrice = product.price.toInt().toString()
+
+                tvNewPrice.text = "₹ $priceAfterDiscount"
+                tvOldPrice.text = "₹ $originalPrice"
+                tvOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             }
         }
     }

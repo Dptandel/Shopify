@@ -28,10 +28,10 @@ class BestDealsAdapter : RecyclerView.Adapter<BestDealsAdapter.BestDealsViewHold
                 val discount = product.offerPercentage!! / 100
                 val priceAfterDiscount =
                     round(product.price - (discount * product.price)).toInt().toString()
-                val price = product.price.toInt().toString()
+                val originalPrice = product.price.toInt().toString()
 
                 tvNewPrice.text = "₹ $priceAfterDiscount"
-                tvOldPrice.text = "₹ $price"
+                tvOldPrice.text = "₹ $originalPrice"
                 tvOldPrice.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             }
         }
