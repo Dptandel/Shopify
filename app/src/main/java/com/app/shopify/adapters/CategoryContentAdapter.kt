@@ -13,8 +13,8 @@ class CategoryContentAdapter(
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
-        private const val VIEW_TYPE_HEADER = 0
-        private const val VIEW_TYPE_ITEM = 1
+        const val VIEW_TYPE_HEADER = 0
+        const val VIEW_TYPE_ITEM = 1
     }
 
     private val flatList = mutableListOf<Any>()
@@ -22,8 +22,10 @@ class CategoryContentAdapter(
     init {
         // Flatten the data into a single list with headers and items
         for ((category, items) in data) {
-            flatList.add(category)
-            flatList.addAll(items)
+            if (items.isNotEmpty()) {
+                flatList.add(category)
+                flatList.addAll(items)
+            }
         }
     }
 
@@ -63,7 +65,7 @@ class CategoryContentAdapter(
         return flatList.indexOfFirst { it is Category && it.id == categoryId }
     }
 
-    class ContentTitleViewHolder(val bindingTitle: CategoryContentTitleBinding) :
+    class ContentTitleViewHolder(private val bindingTitle: CategoryContentTitleBinding) :
         RecyclerView.ViewHolder(bindingTitle.root) {
         fun bind(category: Category) {
             bindingTitle.tvContentTitle.text = category.name

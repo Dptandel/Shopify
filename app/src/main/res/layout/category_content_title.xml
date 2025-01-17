@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tv_content_title"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/g_card_background"
-    android:fontFamily="@font/poppins_light"
-    android:padding="8dp"
+    android:fontFamily="@font/poppins_thin"
+    android:padding="16dp"
     android:text="Category Content Title"
-    android:textColor="@color/black"
+    android:textAllCaps="true"
+    android:textColor="@color/g_gray700"
     android:textSize="14sp"
-    android:textStyle="bold" />
+    android:textStyle="bold"/>

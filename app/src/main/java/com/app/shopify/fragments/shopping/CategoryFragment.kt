@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.app.shopify.R
 import com.app.shopify.adapters.CategoryAdapter
 import com.app.shopify.adapters.CategoryContentAdapter
@@ -23,7 +22,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         Category(2, R.drawable.ic_launcher_background, "Kurti, Saree & Lehenga"),
         Category(3, R.drawable.ic_launcher_background, "Women Western"),
         Category(4, R.drawable.ic_launcher_background, "Men"),
-        /*Category(5, R.drawable.ic_launcher_background, "Kids & Toys"),
+        Category(5, R.drawable.ic_launcher_background, "Kids & Toys"),
         Category(6, R.drawable.ic_launcher_background, "Home & Kitchen"),
         Category(7, R.drawable.ic_launcher_background, "Beauty & Health"),
         Category(8, R.drawable.ic_launcher_background, "Jewellery & Accessories"),
@@ -36,7 +35,7 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         Category(15, R.drawable.ic_launcher_background, "Grocery"),
         Category(16, R.drawable.ic_launcher_background, "Books"),
         Category(17, R.drawable.ic_launcher_background, "Pet Supplies"),
-        Category(18, R.drawable.ic_launcher_background, "Musical Instruments")*/
+        Category(18, R.drawable.ic_launcher_background, "Musical Instruments")
     )
 
     private val contents = listOf(
@@ -45,6 +44,12 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         CategoryContent(2, R.drawable.ic_launcher_background, "All Sarees"),
         CategoryContent(2, R.drawable.ic_launcher_background, "Georgette Sarees"),
         CategoryContent(2, R.drawable.ic_launcher_background, "Chiffon Sarees"),
+        CategoryContent(2, R.drawable.ic_launcher_background, "Cotton Sarees"),
+        CategoryContent(2, R.drawable.ic_launcher_background, "Net Sarees"),
+        CategoryContent(2, R.drawable.ic_launcher_background, "Under 299"),
+        CategoryContent(2, R.drawable.ic_launcher_background, "Silk Sarees"),
+        CategoryContent(2, R.drawable.ic_launcher_background, "New Collection"),
+        CategoryContent(2, R.drawable.ic_launcher_background, "Bridal Sarees")
     )
 
     override fun onCreateView(
@@ -70,17 +75,30 @@ class CategoryFragment : Fragment(R.layout.fragment_category) {
         binding.rvCategory.adapter = categoryAdapter
 
         // Contents of Category
-        binding.rvCategoryContent.layoutManager = LinearLayoutManager(context)
-        val contentAdapter = CategoryContentAdapter(groupedData)
-        binding.rvCategoryContent.adapter = contentAdapter
+        val layoutManager = GridLayoutManager(context, 3)
+        layoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return when ((binding.rvCategoryContent.adapter as CategoryContentAdapter).getItemViewType(
+                    position
+                )) {
+                    CategoryContentAdapter.VIEW_TYPE_HEADER -> 3 // Header takes full row
+                    CategoryContentAdapter.VIEW_TYPE_ITEM -> 1 // Item takes one column
+                    else -> 1
+                }
+            }
+
+        }
+        binding.rvCategoryContent.layoutManager = layoutManager
+        binding.rvCategoryContent.adapter = CategoryContentAdapter(groupedData)
     }
 
     private fun scrollToCategory(categoryId: Int) {
         val contentAdapter = binding.rvCategoryContent.adapter as? CategoryContentAdapter
         val position = contentAdapter?.getPositionForCategory(categoryId)
         if (position != null) {
-            (binding.rvCategoryContent.layoutManager as LinearLayoutManager)
-                .scrollToPositionWithOffset(position, 0)
+            binding.rvCategoryContent.layoutManager?.let {
+                (it as LinearLayoutManager).scrollToPositionWithOffset(position, 0)
+            }
         }
     }
 }
